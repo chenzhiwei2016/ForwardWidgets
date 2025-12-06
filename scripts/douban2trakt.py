@@ -3,7 +3,7 @@ import requests
 import time
 
 # 豆瓣用户ID
-DOUBAN_USER_ID = ""
+DOUBAN_USER_ID = "292574889"
 # TRAKT API APPS的Client ID，请前往 https://trakt.tv/oauth/applications/new 创建
 TRAKT_CLIENT_ID = ""
 # TRAKT抓包获取的x-csrf-token，需有增删改操作的接口才有
