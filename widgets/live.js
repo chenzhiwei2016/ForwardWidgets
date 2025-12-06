@@ -204,7 +204,7 @@ WidgetMetadata = {
     version: "1.0.10",
     requiredVersion: "0.0.1",
     description: "解析直播订阅链接【五折码：CHEAP.5;七折码：CHEAP】",
-    author: "huangxd",
+    author: "czw",
     site: "https://github.com/chenzhiwei2016/ForwardWidgets"
 };
 
@@ -382,11 +382,11 @@ function parseM3UContent(content, iconList, bgColor, direction) {
                 bgColor = "DCDCDC";
             }
             const posterIcon = iconList.includes(currentItem.title)
-                ? `https://ik.imagekit.io/huangxd/tr:l-image,i-transparent.png,w-bw_mul_3.5,h-bh_mul_3,bg-${bgColor},lfo-center,l-image,i-${currentItem.title}.png,lfo-center,l-end,l-end/${currentItem.title}.png`
+                ? `https://ik.imagekit.io/czw/tr:l-image,i-transparent.png,w-bw_mul_3.5,h-bh_mul_3,bg-${bgColor},lfo-center,l-image,i-${currentItem.title}.png,lfo-center,l-end,l-end/${currentItem.title}.png`
                 : "";
             console.log("posterIcon:", posterIcon);
             const backdropIcon = iconList.includes(currentItem.title)
-                ? `https://ik.imagekit.io/huangxd/tr:l-image,i-transparent.png,w-bw_mul_1.5,h-bh_mul_4,bg-${bgColor},lfo-center,l-image,i-${currentItem.title}.png,lfo-center,l-end,l-end/${currentItem.title}.png`
+                ? `https://ik.imagekit.io/czw/tr:l-image,i-transparent.png,w-bw_mul_1.5,h-bh_mul_4,bg-${bgColor},lfo-center,l-image,i-${currentItem.title}.png,lfo-center,l-end,l-end/${currentItem.title}.png`
                 : "";
             console.log("backdropIcon:", backdropIcon);
 
