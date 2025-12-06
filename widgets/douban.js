@@ -1184,7 +1184,7 @@ WidgetMetadata = {
   requiredVersion: "0.0.1",
   description: "解析豆瓣想看、在看、已看以及根据个人数据生成的个性化推荐【五折码：CHEAP.5;七折码：CHEAP】",
   author: "huangxd",
-  site: "https://github.com/huangxd-/ForwardWidgets"
+  site: "https://github.com/chenzhiwei2016/ForwardWidgets"
 };
 
 async function fetchDoubanPage(user_id, status, start, count) {
@@ -1772,7 +1772,7 @@ async function loadActorItems(params = {}) {
 
 // 获取豆瓣首页轮播图
 async function loadCarouselItems(params = {}) {
-    const response = await Widget.http.get(`https://gist.githubusercontent.com/huangxd-/5ae61c105b417218b9e5bad7073d2f36/raw/douban_carousel.json`, {
+    const response = await Widget.http.get(`https://gist.githubusercontent.com/chenzhiwei2016/5ae61c105b417218b9e5bad7073d2f36/raw/douban_carousel.json`, {
         headers: {
             "User-Agent":
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
