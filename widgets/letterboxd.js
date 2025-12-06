@@ -600,7 +600,7 @@ WidgetMetadata = {
     version: "1.0.2",
     requiredVersion: "0.0.1",
     description: "解析Letterboxd片单内的影片【五折码：CHEAP.5;七折码：CHEAP】",
-    author: "huangxd",
+    author: "czw",
     site: "https://github.com/chenzhiwei2016/ForwardWidgets"
 };
 
