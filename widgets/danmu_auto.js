@@ -19,7 +19,7 @@ WidgetMetadata = {
   requiredVersion: "0.0.2",
   description: "自动获取播放链接并从服务器获取弹幕【五折码：CHEAP.5;七折码：CHEAP】",
   author: "huangxd",
-  site: "https://github.com/huangxd-/ForwardWidgets",
+  site: "https://github.com/chenzhiwei2016/ForwardWidgets",
   globalParams: [
     {
       name: "other_server",
