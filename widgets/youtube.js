@@ -1,4 +1,4 @@
-var WidgetMetadata = {
+WidgetMetadata = {
     id: "youtube_playlist_widget_v2",
     title: "YouTube Playlist Fetcher",
     description: "动态获取 YouTube API Key 并抓取播放列表",
