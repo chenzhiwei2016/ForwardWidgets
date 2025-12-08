@@ -1,471 +1,387 @@
-// 电视直播插件
-WidgetMetadata = {
-    id: "live",
-    title: "直播(电视+网络)",
-    detailCacheDuration: 60,
-    modules: [
+var WidgetMetadata = {
+  id: "tv_live",
+  title: "电视直播",
+  描述: "获取热门电视直播源列表",
+  作者: "czw",
+  网站: "https://github.com/chenzhiwei2016/ForwardWidgets",
+  版本: "1.0.0",
+  requiredVersion: "0.0.1",
+  模块: [
+    {
+      title: "电视源列表",
+      描述: "热门电视源列表",
+      requiresWebView: false,
+      函数名: "getLiveTv",
+      参数: [
         {
-            title: "直播(电视+网络)",
-            requiresWebView: false,
-            functionName: "loadLiveItems",
-            cacheDuration: 21600,
-            params: [
-                {
-                    name: "url",
-                    title: "订阅链接",
-                    type: "input",
-                    description: "输入直播订阅链接地址",
-                    placeholders: [
-                        {
-                            title: "Kimentanm",
-                            value: "https://raw.githubusercontent.com/Kimentanm/aptv/master/m3u/iptv.m3u"
-                        },
-                        {
-                            title: "网络直播",
-                            value: "https://tv.iill.top/m3u/Live"
-                        },
-                        {
-                            title: "smart(港澳台)",
-                            value: "https://smart.pendy.dpdns.org/m3u/merged_judy.m3u"
-                        },
-                        {
-                            title: "YanG-Gather1",
-                            value: "https://tv.iill.top/m3u/Gather"
-                        },
-                        {
-                            title: "YanG-Gather2",
-                            value: "https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u"
-                        },
-                        {
-                            title: "suxuang",
-                            value: "https://bit.ly/suxuang-v4"
-                        },
-                        {
-                            title: "PlutoTV-美国",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_US.m3u"
-                        },
-                        {
-                            title: "PlutoTV-墨西哥",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_MX.m3u"
-                        },
-                        {
-                            title: "PlutoTV-意大利",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_IT.m3u"
-                        },
-                        {
-                            title: "PlutoTV-英国",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_GB.m3u"
-                        },
-                        {
-                            title: "PlutoTV-法国",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_FR.m3u"
-                        },
-                        {
-                            title: "PlutoTV-西班牙",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_ES.m3u"
-                        },
-                        {
-                            title: "PlutoTV-德国",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_DE.m3u"
-                        },
-                        {
-                            title: "PlutoTV-智利",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_CL.m3u"
-                        },
-                        {
-                            title: "PlutoTV-加拿大",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_CA.m3u"
-                        },
-                        {
-                            title: "PlutoTV-巴西",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_BR.m3u"
-                        },
-                        {
-                            title: "PlutoTV-阿根廷",
-                            value: "https://raw.githubusercontent.com/HelmerLuzo/PlutoTV_HL/refs/heads/main/tv/m3u/PlutoTV_tv_AR.m3u"
-                        },
-                        {
-                            title: "全球",
-                            value: "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"
-                        },
-                        {
-                            title: "IPTV1",
-                            value: "https://raw.githubusercontent.com/skddyj/iptv/main/IPTV.m3u"
-                        },
-                        {
-                            title: "IPTV2-CN",
-                            value: "https://iptv-org.github.io/iptv/countries/cn.m3u"
-                        },
-                        {
-                            title: "IPTV3",
-                            value: "https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.m3u"
-                        },
-                    ]
-                },
-                {
-                    name: "group_filter",
-                    title: "按组关键字过滤(选填)，如央视，会筛选出所有group-title中包含央视的频道",
-                    type: "input",
-                    description: "输入组关键字，如央视，会筛选出所有group-title中包含央视的频道",
-                    placeholders: [
-                        {
-                            title: "全部",
-                            value: "",
-                        },
-                        {
-                            title: "央视&卫视",
-                            value: ".*(央视|卫视).*",
-                        },
-                        {
-                            title: "央视",
-                            value: "央视",
-                        },
-                        {
-                            title: "卫视",
-                            value: "卫视",
-                        },
-                    ]
-                },
-                {
-                    name: "name_filter",
-                    title: "按频道名关键字过滤(选填)，如卫视，会筛选出所有频道名中包含卫视的频道",
-                    type: "input",
-                    description: "输入频道名关键字过滤(选填)，如卫视，会筛选出所有频道名中包含卫视的频道",
-                    placeholders: [
-                        {
-                            title: "全部",
-                            value: "",
-                        },
-                        {
-                            title: "B站&虎牙&斗鱼",
-                            value: ".*(B站|虎牙|斗鱼).*",
-                        },
-                        {
-                            title: "英雄联盟",
-                            value: "英雄联盟",
-                        },
-                        {
-                            title: "王者荣耀",
-                            value: "王者荣耀",
-                        },
-                        {
-                            title: "绝地求生",
-                            value: "绝地求生",
-                        },
-                        {
-                            title: "和平精英",
-                            value: "和平精英",
-                        },
-                    ]
-                },
-                {
-                    name: "bg_color",
-                    title: "台标背景色(只对源里不自带台标的起作用)",
-                    type: "input",
-                    description: "支持RGB颜色，如DCDCDC",
-                    value: "DCDCDC",
-                    placeholders: [
-                        {
-                            title: "亮灰色",
-                            value: "DCDCDC",
-                        },
-                        {
-                            title: "钢蓝",
-                            value: "4682B4",
-                        },
-                        {
-                            title: "浅海洋蓝",
-                            value: "20B2AA",
-                        },
-                        {
-                            title: "浅粉红",
-                            value: "FFB6C1",
-                        },
-                        {
-                            title: "小麦色",
-                            value: "F5DEB3",
-                        },
-                    ]
-                },
-                {
-                    name: "direction",
-                    title: "台标优先显示方向",
-                    type: "enumeration",
-                    description: "台标优先显示方向，默认为竖向",
-                    value: "V",
-                    enumOptions: [
-                        {title: "竖向", value: "V"},
-                        {title: "横向", value: "H"},
-                    ]
-                },
-            ],
+          名称: "sort_by",
+          title: "筛选类型",
+          类型: "枚举",
+          enumOptions: [
+            { title: "全部频道", value: "全部" },
+            { title: "央视频道", value: "cctv" },
+            { title: "卫视频道", value: "stv" },
+            { title: "地方频道列表", value: "ltv" }
+          ]
         },
-    ],
-    version: "1.0.10",
-    requiredVersion: "0.0.1",
-    description: "解析直播订阅链接",
-    author: "czw",
-    site: "https://github.com/chenzhiwei2016/ForwardWidgets"
+        {
+          名称: "url",
+          title: "用户订阅",
+          类型: "输入",
+          描述: "输入M3U格式订阅链接"
+        },
+        {
+          名称: "bg_color",
+          title: "图标背景颜色",
+          类型: "输入",
+          描述: "RGB颜色，如DCDCDC",
+          占位符: [
+            { title: "水泥灰", value: "848484" },
+            { title: "蓝灰", value: "90A4AE" },
+            { title: "暖灰色", value: "424242" },
+            { title: "深灰色", value: "1C1C1E" }
+          ]
+        }
+      ]
+    }
+  ]
 };
 
+async function getLiveTv(params = {}) {
+  try {
+    const response = await Widget.http.get("https://raw.githubusercontent.com/2kuai/ForwardWidgets/refs/heads/main/data/iptv-data.json");
+    
+    if (!response?.data) {
+      throw new Error("响应数据为空或格式不正确");
+    }
 
-async function loadLiveItems(params = {}) {
-    try {
-        const url = params.url || "";
-        const groupFilter = params.group_filter || "";
-        const nameFilter = params.name_filter || "";
-        const bgColor = params.bg_color || "";
-        const direction = params.direction || "";
+    const modifiedData = { ...response.data };
+    let addedSourcesCount = 0;
+    const usedUserUrls = new Set();
+    
+    const url = params.url || "https://gist.githubusercontent.com/2kuai/d8e81b63e272dd838f372079bd204b42/raw/d9b79fe5937b0064ca0fe543dda78ba99787eb62/aptv";
 
-        if (!url) {
-            throw new Error("必须提供电视直播订阅链接");
+    if (url) {
+      try {
+        const userResponse = await Widget.http.get(url);
+        if (userResponse?.data) {
+          const userChannels = parseM3U(userResponse.data);
+          console.log(`[用户订阅] 从用户订阅内容中解析出 ${userChannels.length} 个频道`);
+          
+          const allPotentialMatches = [];
+          
+          for (const category in modifiedData) {
+            if (Array.isArray(modifiedData[category])) {
+              modifiedData[category].forEach(baseChannel => {
+                userChannels.forEach(userChannel => {
+                  if (!usedUserUrls.has(userChannel.url)) {
+                    const score = calculateMatchScore(userChannel.name, baseChannel.name);
+                    if (score > 0.7) {
+                      allPotentialMatches.push({
+                        baseChannel,
+                        userChannel,
+                        score
+                      });
+                    }
+                  }
+                });
+              });
+            }
+          }
+          
+          allPotentialMatches.sort((a, b) => b.score - a.score);
+          
+          const channelStats = {};
+          allPotentialMatches.forEach(({ baseChannel, userChannel }) => {
+            if (!usedUserUrls.has(userChannel.url)) {
+              const targetChannel = findChannelInData(modifiedData, baseChannel.name);
+              if (targetChannel) {
+                targetChannel.childItems = [
+                  ...(targetChannel.childItems || []),
+                  userChannel.url
+                ].filter(Boolean);
+                usedUserUrls.add(userChannel.url);
+                addedSourcesCount++;
+                
+                if (!channelStats[baseChannel.name]) {
+                  channelStats[baseChannel.name] = {
+                    count: 0,
+                    urls: []
+                  };
+                }
+                channelStats[baseChannel.name].count++;
+                channelStats[baseChannel.name].urls.push(userChannel.url);
+              }
+            }
+          });
+          
+          console.log(`[用户订阅] 共添加了 ${addedSourcesCount} 个有效源`);
+          for (const [channelName, stats] of Object.entries(channelStats)) {
+            console.log(` - ${channelName}: 添加了 ${stats.count} 个源`);
+            stats.urls.forEach((url, index) => {
+              console.log(`${index + 1}. ${url}`);
+            });
+          }
         }
+      } catch (userError) {
+        console.error("[用户订阅] 处理用户订阅失败:", userError.message);
+      }
+    }
 
-        // 从URL获取M3U内容
-        const response = await this.fetchM3UContent(url);
-        if (!response) return [];
+    modifiedData["all"] = Object.values(modifiedData)
+      .filter(Array.isArray)
+      .flat();
 
-        // 获取台标数据
-        const iconList = await this.fetchIconList(url);
+    if (!params.sort_by || !modifiedData[params.sort_by]) {
+      throw new Error(`不支持的筛选类型: ${params.sort_by}`);
+    }
+    
+    // 获取当前日期，格式为YYYY-MM-DD
+    const today = new Date();
+    const dateString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    
+    // 获取频道列表
+    const channels = modifiedData[params.sort_by];
+    
+    // 获取EPG信息
+    const channelsWithEPG = await Promise.all(channels.map(async (item) => {
+      try {
+        // 直接使用原始频道名称作为EPG查询参数
+        const epgResponse = await Widget.http.get(`https://epg.aptv.app/?ch=${item.name}&date=${dateString}`, {
+          headers: {
+            "user-agent": "APTV/9.4.12 (com.kimen.aptvpro; build:1; iOS 18.6.2) Alamofire/5.9.1"
+          }
+        });
+        
+        if (epgResponse?.data) {
+          // 解析EPG数据
+          const epgInfo = parseEPGData(epgResponse.data);
+          if (epgInfo) {
+            // 合并原始描述和EPG信息
+            const originalDesc = item.description || '';
+            const epgDesc = formatEPGDescription(epgInfo);
+            item.description = `${originalDesc}\n\n${epgDesc}`.trim();
+          }
+        }
+      } catch (epgError) {
+        console.error(`[EPG] 获取频道${item.name}的EPG信息失败:`, epgError.message);
+      }
+      return item;
+    }));
+    
+    return channelsWithEPG
+      .map(item => {
+        const validUrls = (item.childItems || [])
+          .filter(url => typeof url === 'string' && url.trim());
+        
+        if (validUrls.length === 0) return null;
 
-        // 解析M3U内容
-        const items = parseM3UContent(response, iconList, bgColor, direction);
-
-        // 应用过滤器
-        const filteredItems = items.filter(item => {
-            // 组过滤（支持正则表达式）
-            const groupMatch = !groupFilter || (() => {
-                try {
-                    // 尝试将输入作为正则表达式解析
-                    const regex = new RegExp(groupFilter, 'i');
-                    return regex.test(item.metadata?.group || '');
-                } catch (e) {
-                    // 若解析失败则回退到普通字符串包含检查（大小写无关）
-                    return (item.metadata?.group?.toLowerCase() || '').includes(groupFilter.toLowerCase());
-                }
-            })();
-
-            // 名称过滤（支持正则表达式）
-            const nameMatch = !nameFilter || (() => {
-                try {
-                    // 尝试将输入作为正则表达式解析
-                    const regex = new RegExp(nameFilter, 'i');
-                    return regex.test(item.title || '');
-                } catch (e) {
-                    // 若解析失败则回退到普通字符串包含检查（大小写无关）
-                    return (item.title?.toLowerCase() || '').includes(nameFilter.toLowerCase());
-                }
-            })();
-
-            // 只有当两个条件都满足时才返回 true
-            return groupMatch && nameMatch;
+        const createItem = (url, title, isMain = false) => ({
+          id: url,
+          type: "url",
+          title: isMain ? item.name : title,
+          backgroundPath: item.backdrop_path.replace(/bg-\w{6}/g, params.bg_color ? `bg-${params.bg_color}` : '$&'),
+          description: item.description,
+          videoUrl: url,
+          customHeaders: {"user-agent": "AptvPlayer/1.4.10"}
         });
 
-        // 获取过滤后的总数
-        const totalCount = filteredItems.length;
-
-        // 为每个频道的标题添加 (x/y) 标记
-        return filteredItems.map((item, index) => ({
-            ...item,
-            title: `${item.title} (${index + 1}/${totalCount})`
-        }));
-    } catch (error) {
-        console.error(`解析电视直播链接时出错: ${error.message}`);
-        return [];
-    }
+        const mainItem = createItem(validUrls[0], item.name, true);
+        
+        if (validUrls.length > 1) {
+          mainItem.childItems = validUrls.slice(1).map((url, i) =>
+            createItem(url, `${item.name} - (${i+1})`)
+          );
+        }
+        
+        return mainItem;
+      })
+      .filter(Boolean);
+      
+  } catch (error) {
+    console.error("获取直播频道失败:", error.message);
+    throw error;
+  }
 }
 
-
-async function fetchM3UContent(url) {
-    try {
-        const response = await Widget.http.get(url, {
-            headers: {
-                'User-Agent': 'AptvPlayer/1.4.6',
-            }
+// 解析EPG数据
+function parseEPGData(epgData) {
+  try {
+    if (!epgData || typeof epgData !== 'object' || !Array.isArray(epgData.epg_data)) {
+      return null;
+    }
+    
+    // 获取当前时间
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentTime = currentHour * 100 + currentMinute;
+    
+    // 查找当前正在播放的节目
+    let currentProgram = null;
+    // 查找即将播放的节目
+    let comingPrograms = [];
+    
+    for (const program of epgData.epg_data) {
+      if (!program.start || !program.end || !program.title) continue;
+      
+      const [startHour, startMinute] = program.start.split(':').map(Number);
+      const [endHour, endMinute] = program.end.split(':').map(Number);
+      const startTime = startHour * 100 + startMinute;
+      const endTime = endHour * 100 + endMinute;
+      
+      if (currentTime >= startTime && currentTime < endTime) {
+        currentProgram = {
+          title: program.title,
+          start: program.start,
+          end: program.end,
+          desc: program.desc || ''
+        };
+      } else if (currentTime < startTime) {
+        comingPrograms.push({
+          title: program.title,
+          start: program.start,
+          end: program.end,
+          desc: program.desc || ''
         });
-
-        console.log("请求结果:", response.data);
-
-        if (response.data && response.data.includes("#EXTINF")) {
-            return response.data;
-        }
-
-        return null;
-    } catch (error) {
-        console.error(`获取M3U内容时出错: ${error.message}`);
-        return null;
+      }
     }
-}
-
-
-async function fetchIconList() {
-    try {
-        const response = await Widget.http.get("https://api.github.com/repos/fanmingming/live/contents/tv", {
-            headers: {
-                'Accept': 'application/vnd.github.v3+json',
-            }
-        });
-
-        console.log("请求结果:", response.data);
-
-        const iconList = response.data.map(item => item.name.replace('.png', ''));
-
-        console.log("iconList:", iconList); // ["4K电影"]
-
-        return iconList;
-    } catch (error) {
-        console.error(`获取台标数据时出错: ${error.message}`);
-        return [];
-    }
-}
-
-
-function parseM3UContent(content, iconList, bgColor, direction) {
-    if (!content || !content.trim()) return [];
-
-    const lines = content.split(/\r?\n/);
-    const items = [];
-    let currentItem = null;
-
-    // 正则表达式用于匹配M3U标签和属性
-    const extInfRegex = /^#EXTINF:(-?\d+)(.*),(.*)$/;
-    const groupRegex = /group-title="([^"]+)"/;
-    const tvgNameRegex = /tvg-name="([^"]+)"/;
-    const tvgLogoRegex = /tvg-logo="([^"]+)"/;
-    const tvgIdRegex = /tvg-id="([^"]+)"/;
-
-    for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-
-        // 跳过空行和注释行
-        if (!line || line.startsWith('#EXTM3U')) continue;
-
-        // 匹配#EXTINF行
-        if (line.startsWith('#EXTINF:')) {
-            const match = line.match(extInfRegex);
-            if (match) {
-                const duration = match[1];
-                const attributes = match[2];
-                const title = match[3].trim();
-
-                // 提取属性
-                const groupMatch = attributes.match(groupRegex);
-                const tvgNameMatch = attributes.match(tvgNameRegex);
-                const tvgLogoMatch = attributes.match(tvgLogoRegex);
-                const tvgIdMatch = attributes.match(tvgIdRegex);
-
-                const group = groupMatch ? groupMatch[1] : '未分类';
-                const tvgName = tvgNameMatch ? tvgNameMatch[1] : title;
-                const cover = tvgLogoMatch ? tvgLogoMatch[1] : '';
-                const tvgId = tvgIdMatch ? tvgIdMatch[1] : '';
-
-                // 创建新的直播项目
-                currentItem = {
-                    duration,
-                    title,
-                    group,
-                    tvgName,
-                    tvgId,
-                    cover,
-                    url: null
-                };
-            }
-        }
-        // 匹配直播URL行
-        else if (currentItem && line && !line.startsWith('#')) {
-            const url = line;
-            console.log(currentItem.title);
-            // const icon = iconList.includes(currentItem.title)
-            //     ? `https://live.fanmingming.cn/tv/${currentItem.title}.png`
-            //     : "";
-            if (!bgColor) {
-                bgColor = "DCDCDC";
-            }
-            const posterIcon = iconList.includes(currentItem.title)
-                ? `https://ik.imagekit.io/czw/tr:l-image,i-transparent.png,w-bw_mul_3.5,h-bh_mul_3,bg-${bgColor},lfo-center,l-image,i-${currentItem.title}.png,lfo-center,l-end,l-end/${currentItem.title}.png`
-                : "";
-            console.log("posterIcon:", posterIcon);
-            const backdropIcon = iconList.includes(currentItem.title)
-                ? `https://ik.imagekit.io/czw/tr:l-image,i-transparent.png,w-bw_mul_1.5,h-bh_mul_4,bg-${bgColor},lfo-center,l-image,i-${currentItem.title}.png,lfo-center,l-end,l-end/${currentItem.title}.png`
-                : "";
-            console.log("backdropIcon:", backdropIcon);
-
-            // 构建最终的项目对象
-            const item = {
-                id: url,
-                type: "url",
-                title: currentItem.title,
-                // posterPath: posterIcon || currentItem.cover || "https://i.miji.bid/2025/05/17/343e3416757775e312197588340fc0d3.png",
-                backdropPath: backdropIcon || currentItem.cover || "https://i.miji.bid/2025/05/17/c4a0703b68a4d2313a27937d82b72b6a.png",
-                previewUrl: "", // 直播通常没有预览URL
-                link: url,
-                playerType: "system",
-                // 额外的元数据
-                metadata: {
-                    group: currentItem.group,
-                    tvgName: currentItem.tvgName,
-                    tvgId: currentItem.tvgId
-                }
-            };
-            if (!direction || direction === "V") {
-                item['posterPath'] = posterIcon || currentItem.cover || "https://i.miji.bid/2025/05/17/343e3416757775e312197588340fc0d3.png";
-            }
-
-            items.push(item);
-            currentItem = null; // 重置当前项目
-        }
-    }
-
-    return items;
-}
-
-
-async function loadDetail(link) {
-    let videoUrl = link;
-    let childItems = []
-
-    // const formats = ['m3u8', 'mp4', 'mp3', 'flv', 'avi', 'mov', 'wmv', 'webm', 'ogg', 'mkv', 'ts'];
-    // if (!formats.some(format => link.includes(format))) {
-    //     // 获取重定向location
-    //     const url = `https://redirect-check.hxd.ip-ddns.com/redirect-check?url=${link}`;
-    //
-    //     const response = await Widget.http.get(url, {
-    //         headers: {
-    //             "User-Agent": "AptvPlayer/1.4.6",
-    //         },
-    //     });
-    //
-    //     console.log(response.data)
-    //
-    //     if (response.data && response.data.location && formats.some(format => response.data.location.includes(format))) {
-    //         videoUrl = response.data.location;
-    //     }
-    //
-    //     if (response.data && response.data.error && response.data.error.includes("超时")) {
-    //         const hint_item = {
-    //             id: videoUrl,
-    //             type: "url",
-    //             title: "超时/上面直播不可用",
-    //             posterPath: "https://i.miji.bid/2025/05/17/561121fb0ba6071d4070627d187b668b.png",
-    //             backdropPath: "https://i.miji.bid/2025/05/17/561121fb0ba6071d4070627d187b668b.png",
-    //             link: videoUrl,
-    //             playerType: "system",
-    //         };
-    //         childItems = [hint_item]
-    //     }
-    // }
-
-    const item = {
-        id: link,
-        type: "detail",
-        videoUrl: videoUrl,
-        customHeaders: {
-            "Referer": link,
-            "User-Agent": "AptvPlayer/1.4.6",
-        },
-        playerType: "system",
-        childItems: childItems,
+    
+    return {
+      current: currentProgram,
+      coming: comingPrograms,
+      date: epgData.date || '',
+      channelName: epgData.channel_name || ''
     };
+  } catch (error) {
+    console.error("解析EPG数据失败:", error);
+    return null;
+  }
+}
 
-    return item;
+// 格式化EPG描述
+function formatEPGDescription(epgInfo) {
+  let desc = "【节目预告】\n";
+  
+  if (epgInfo.channelName) {
+    desc += `频道: ${epgInfo.channelName}\n`;
+  }
+  if (epgInfo.date) {
+    desc += `日期: ${epgInfo.date}\n`;
+  }
+  
+  if (epgInfo.current) {
+    desc += `正在播放: ${epgInfo.current.title} (${epgInfo.current.start}-${epgInfo.current.end})`;
+    if (epgInfo.current.desc) {
+      desc += `\n简介: ${epgInfo.current.desc}`;
+    }
+    desc += "\n";
+  } else {
+    desc += "当前无节目信息\n";
+  }
+  
+  if (epgInfo.coming && epgInfo.coming.length > 0) {
+    desc += "\n【即将播放】\n";
+    epgInfo.coming.forEach((program, index) => {
+      desc += `${index + 1}. ${program.title} (${program.start}-${program.end})`;
+      if (program.desc) {
+        desc += ` - ${program.desc}`;
+      }
+      desc += "\n";
+    });
+  } else {
+    desc += "暂无后续节目信息";
+  }
+  
+  return desc;
+}
+
+// 计算匹配分数
+function calculateMatchScore(userName, baseName) {
+  const normalize = (name) => {
+    return (name || '')
+      .toLowerCase()
+      .replace(/\s+/g, '')
+      .replace(/-/g, '')
+      .replace(/[^\w\u4e00-\u9fa5]/g, '');
+  };
+
+  const userNorm = normalize(userName);
+  const baseNorm = normalize(baseName);
+
+  if (userNorm === baseNorm) return 1.0;
+
+  const cctvPattern = /cctv(\d+)/;
+  const userMatch = userNorm.match(cctvPattern);
+  const baseMatch = baseNorm.match(cctvPattern);
+  
+  if (userMatch && baseMatch) {
+    return userMatch[1] === baseMatch[1] ? 0.9 : 0;
+  }
+
+  return calculateSimilarity(userNorm, baseNorm);
+}
+
+// 计算字符相似度
+function calculateSimilarity(a, b) {
+  const matrix = [];
+  for (let i = 0; i <= a.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i-1] === b[j-1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i-1][j] + 1,
+        matrix[i][j-1] + 1,
+        matrix[i-1][j-1] + cost
+      );
+    }
+  }
+  return 1 - matrix[a.length][b.length] / Math.max(a.length, b.length);
+}
+
+// 在数据中查找频道
+function findChannelInData(data, channelName) {
+  for (const category in data) {
+    if (Array.isArray(data[category])) {
+      const found = data[category].find(item => item.name === channelName);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+// 解析M3U格式
+function parseM3U(content) {
+  const channels = [];
+  let current = {};
+  let lineIndex = 0;
+
+  content.split('\n').forEach(line => {
+    line = line.trim();
+    if (!line) return;
+
+    if (line.includes(',http') && !line.startsWith('#')) {
+      const [name, url] = line.split(',http');
+      channels.push({
+        name: name.trim(),
+        url: 'http' + url.trim()
+      });
+      return;
+    }
+
+    if (line.startsWith('#EXTINF')) {
+      current.name = line.match(/tvg-name="([^"]+)"/)?.[1] ||
+                   line.match(/,([^,]+)$/)?.[1]?.trim() || '';
+      lineIndex = 1;
+    } else if (lineIndex === 1) {
+      current.url = line;
+      channels.push(current);
+      current = {};
+      lineIndex = 0;
+    }
+  });
+
+  return channels;
 }
